@@ -1,4 +1,12 @@
 import React, { useState } from "react";
+// import "../App.sass";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { faCalendarPlus } from "@fortawesome/free-solid-svg-icons";
+
+library.add(fab, faCalendarPlus);
 
 function getDate() {
   let newDate = new Date();
@@ -26,30 +34,38 @@ function TodoForm({ addTodo }) {
   return (
     <form onSubmit={handleSubmit}>
       <input
+        className="todo-text-input"
         type="text"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         placeholder="Add todo"
         label="description"
-        style={{ width: "200px", height: "30px", margin: "10px" }}
       />
       <br />
-      <input
-        label="deadline"
-        type="date"
-        name="deadline"
-        value={deadline}
-        onChange={(e) => {
-          setDeadline(e.currentTarget.value);
-        }}
-        style={{ width: "150px", height: "30px" }}
-      />
-      <button
-        type="submit"
-        style={{ marginInline: "10px", width: "50px", height: "25px" }}
-      >
-        Add
-      </button>
+      <div className="date-and-save">
+        <input
+          className="todo-deadline-input"
+          label="deadline"
+          type="date"
+          name="deadline"
+          value={deadline}
+          onChange={(e) => {
+            setDeadline(e.currentTarget.value);
+          }}
+          // style={{ width: "150px", height: "30px"  }}
+        />
+
+        <button
+          className="add-todo-btn"
+          type="submit"
+          style={{ backgroundColor: "transparent", border: "none" }}
+        >
+          <FontAwesomeIcon
+            icon={faCalendarPlus}
+            style={{ width: "1.5rem", height: "1.5rem" }}
+          />
+        </button>
+      </div>
     </form>
   );
 }

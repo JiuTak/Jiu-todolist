@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { RiCloseCircleLine } from "react-icons/ri";
-import { RiEditLine } from "react-icons/ri";
-import { RiSave3Line } from "react-icons/ri";
-// import Wrapper from "./Components/Wrapper";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import {
+  faPenSquare,
+  faTrash,
+  faSave,
+} from "@fortawesome/free-solid-svg-icons";
+
+library.add(fab, faPenSquare, faTrash, faSave);
 function Todo({ todo, deleteTodo, checkingCompleted }) {
   const [editing, setEditing] = useState(false);
   const [editDescription, setEditDescription] = useState(todo.description);
@@ -15,41 +21,68 @@ function Todo({ todo, deleteTodo, checkingCompleted }) {
   };
   return (
     <div className="todolist-container">
-      <li>
+      <li
+        className="todolist-single-line"
+        style={{
+          color: todo.completed ? "white" : "black",
+          backgroundColor: todo.completed ? "green" : null,
+        }}
+      >
         <input
           type="checkbox"
           checked={todo.completed}
           onChange={handleCheckbox}
         />
         {!editing ? (
-          <span
+          <div
+            className="todo-contents"
             style={{
               marginInline: "10px",
               textDecoration: todo.completed ? "line-through" : null,
-              color: todo.completed ? "red" : "black",
+              color: todo.completed ? "white" : "black",
+              backgroundColor: todo.completed ? "green" : null,
             }}
           >
-            <span>
-              {editDescription} | {editDeadline}
-            </span>
-          </span>
+            <div
+              className="todo-text"
+              style={{
+                color: todo.completed ? "white" : "black",
+                backgroundColor: todo.completed ? "green" : null,
+              }}
+            >
+              {editDescription}
+            </div>
+            <div
+              className="todo-deadline"
+              style={{
+                color: todo.completed ? "white" : "black",
+                backgroundColor: todo.completed ? "green" : null,
+              }}
+            >
+              {editDeadline}
+            </div>
+          </div>
         ) : (
-          <>
+          <div>
             <input
+              className="todo-text"
               type="text"
               onChange={(e) => {
                 setEditDescription(e.target.value);
               }}
               value={editDescription}
+              style={{ fontFamily: "'Mitr', sans-serif" }}
             ></input>
             <input
+              className="todo-deadline"
               type="date"
               onChange={(e) => {
                 setEditDeadline(e.target.value);
               }}
               value={editDeadline}
+              style={{ fontFamily: "'Mitr', sans-serif" }}
             ></input>
-          </>
+          </div>
         )}
         <button
           className="edit-btn"
@@ -57,23 +90,25 @@ function Todo({ todo, deleteTodo, checkingCompleted }) {
             setEditing(!editing);
           }}
         >
-          {editing ? <RiSave3Line /> : <RiEditLine />}
+          {editing ? (
+            <FontAwesomeIcon icon={faSave} />
+          ) : (
+            <FontAwesomeIcon icon={faPenSquare} />
+          )}
         </button>
-
-        {/* <RiEditLine
-          className="edit-btn"
-          onClick={() => {
-            setEditing(!editing);
+        <button
+          className="delete-btn"
+          style={{
+            color: todo.completed ? "black" : "black",
+            backgroundColor: todo.completed ? "green" : null,
           }}
         >
-          {editing ? <RiSave3Line /> : null}
-        </RiEditLine> */}
-        <span>
-          <RiCloseCircleLine
+          <FontAwesomeIcon
+            icon={faTrash}
             onClick={() => deleteTodo(todo.id)}
             style={{ float: "right", fontSize: "20px" }}
           />
-        </span>
+        </button>
       </li>
     </div>
   );

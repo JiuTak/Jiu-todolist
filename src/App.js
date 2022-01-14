@@ -1,9 +1,16 @@
-import "./App.css";
+import "./App.sass";
 import TodoList from "./Components/TodoList";
 import TodoForm from "./Components/TodoForm";
 import { useState, useEffect } from "react";
 import Timer from "./Components/Timer";
 import { nanoid } from "nanoid";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { faClipboardList } from "@fortawesome/free-solid-svg-icons";
+
+library.add(fab, faClipboardList);
 
 const API_URL =
   "https://gist.githubusercontent.com/benna100/391eee7a119b50bd2c5960ab51622532/raw";
@@ -55,7 +62,9 @@ function App() {
 
   return (
     <div className="App">
-      <h1>My Todo List</h1>
+      <h1 className="title-header">
+        My Todo List <FontAwesomeIcon icon={faClipboardList} />
+      </h1>
       <TodoForm addTodo={addTodo} />
       <Timer />
 
