@@ -50,7 +50,7 @@ function Todo({ todo, deleteTodo, checkingCompleted }) {
                 backgroundColor: todo.completed ? "green" : null,
               }}
             >
-              {editDescription}
+              {editDescription} &nbsp;
             </div>
             <div
               className="todo-deadline"
